@@ -30,6 +30,7 @@
 
 <script>
 import { login, getSmsCode } from '@/api/user'
+import { validate } from 'vee-validate'
 // import { log } from 'util'
 export default {
   data () {
@@ -44,7 +45,7 @@ export default {
   methods: {
     // 登录请求
     async onLogin () {
-      const user = this.user
+      const user = this.user// 获取手机号
       const success = await this.$refs.form.validate()
       if (!success) {
         setTimeout(() => {
@@ -54,14 +55,6 @@ export default {
             return item[0]
           })
           this.$toast(item[0])
-
-          // for (let key in errors) {
-          //   const item = errors[0]
-          //   if (item[0]) {
-          //     this.$toast(item[0])
-          //     return
-          //   }
-          // }
         }, 100)
         return
       }
@@ -80,7 +73,15 @@ export default {
     },
     // 验证码
     async clickCode () {
-      const mobile = this.user.mobile
+      // const mobile = this.user.mobile
+      const { mobile } = this.user// 获取手机号
+      const validateResult = await validate(mobile, 'required|mobile', {
+        name: '手机号'
+      })
+      if (!validateResult.valid) {
+        this.$toast(validateResult.errors[0])
+        return
+      }
       try {
         this.codeShow = true
         await getSmsCode(mobile)
