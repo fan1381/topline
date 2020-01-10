@@ -11,8 +11,8 @@ import * as rules from 'vee-validate/dist/rules'
 import { messages } from 'vee-validate/dist/locale/zh_CN.json'
 
 // 注册全局组件
-Vue.component('ValidationProvider', ValidationProvider)
-Vue.component('ValidationObserver', ValidationObserver)
+Vue.component('ValidationProvider', ValidationProvider) // 包裹需要校验的表单元素
+Vue.component('ValidationObserver', ValidationObserver) // 包裹整个表单的
 
 // 配置验证规则和中文提示消息
 Object.keys(rules).forEach(rule => {
@@ -20,4 +20,18 @@ Object.keys(rules).forEach(rule => {
     ...rules[rule],
     message: messages[rule]
   })
+})
+// 自定义验证规则
+extend('mobile', {
+  validate: value => {
+    return /^1(3|5|6|7|8|9)\d{9}$/.test(value)
+  },
+  message: '手机号码格式错误'
+})
+
+extend('code', {
+  validate: value => {
+    return /^\d{6}$/.test(value)
+  },
+  message: '验证码格式错误'
 })
