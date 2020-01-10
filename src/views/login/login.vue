@@ -65,7 +65,8 @@ export default {
       })
       try {
         const res = await login(user)
-        console.log(res)
+
+        this.$store.commit('setUser', res.data.data) // 将token存到vuex中
         this.$toast.success('登录成功') // 成功文案
       } catch (err) {
         this.$toast.fail('登录失败') // 失败文案
