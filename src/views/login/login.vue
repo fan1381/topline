@@ -68,6 +68,7 @@ export default {
 
         this.$store.commit('setUser', res.data.data) // 将token存到vuex中
         this.$toast.success('登录成功') // 成功文案
+        this.$router.push('/')
       } catch (err) {
         this.$toast.fail('登录失败') // 失败文案
       }
