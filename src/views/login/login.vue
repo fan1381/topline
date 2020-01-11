@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { login, getSmsCode } from '@/api/user'
+import { login, getSmsCode } from '@/api/user' // 请求
 import { validate } from 'vee-validate'
 // import { log } from 'util'
 export default {
