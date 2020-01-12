@@ -13,7 +13,7 @@ request.defaults.transformResponse = [function (data) {
   }
 }]
 // 请求 拦截器
-axios.interceptors.request.use(function (config) {
+request.interceptors.request.use(function (config) {
   //  统一设置token
   const { user } = store.state
   if (user) {
@@ -26,7 +26,7 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(error)
 })
 // 响应拦截器
-axios.interceptors.response.use(function (response) {
+request.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   return Promise.reject(error)

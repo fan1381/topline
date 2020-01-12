@@ -16,3 +16,11 @@ export const getSmsCode = (mobile) => {
 
   })
 }
+// 获取用户登录信息
+// 在拦截器里将axios改为request发送
+export const getUserInfo = () => {
+  return request({
+    method: 'GET',
+    url: '/app/v1_0/user'
+  })
+}
